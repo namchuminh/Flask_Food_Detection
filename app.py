@@ -44,6 +44,12 @@ def get_random_string(length):
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD'], filename)
 
+@app.route('/', methods=['GET'])
+def index():
+    return jsonify({
+        'message': 'To access this resource, please use the POST method.',
+    })
+
 @app.route('/', methods=['POST'])
 def recognize():
     file = request.files.get('image')
