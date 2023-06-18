@@ -78,17 +78,27 @@ def recognize():
         class_name = class_names[index]
         confidence_score = prediction[0][index]
         
-        food_name = str(FOOD_NAME[int(class_name[2:]) - 1])
-        summary = wikipedia.summary(food_name)
-        
-        return jsonify({
-            'message': 'success',
-            'class': str(class_name[2:]),
-            'food_name': str(FOOD_NAME[int(class_name[2:]) - 1]),
-            'confidence': str(int(float(confidence_score) * 100)) + "%",
-            'image_path': "/uploads" + "/" + file_name_random,
-            'description': summary
-        })
+        try:
+            food_name = str(FOOD_NAME[int(class_name[2:]) - 1])
+            summary = wikipedia.summary(food_name)
+            
+            return jsonify({
+                'message': 'success',
+                'class': str(class_name[2:]),
+                'food_name': str(FOOD_NAME[int(class_name[2:]) - 1]),
+                'confidence': str(int(float(confidence_score) * 100)) + "%",
+                'image_path': "/uploads" + "/" + file_name_random,
+                'description': summary
+            })
+        except:
+            return jsonify({
+                'message': 'success',
+                'class': str(class_name[2:]),
+                'food_name': str(FOOD_NAME[int(class_name[2:]) - 1]),
+                'confidence': str(int(float(confidence_score) * 100)) + "%",
+                'image_path': "/uploads" + "/" + file_name_random,
+                'description': "The information about this dish cannot be found on wiki at the moment."
+            })
     else:
         return jsonify({'message': 'No file uploaded!'})
     
