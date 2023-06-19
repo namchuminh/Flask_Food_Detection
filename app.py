@@ -7,6 +7,7 @@ import numpy as np
 from keras.models import load_model 
 from PIL import Image, ImageOps  
 import wikipedia
+from data import cook, FOOD_NAME
 
 app = Flask(__name__)
 
@@ -15,13 +16,6 @@ APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 UPLOAD_FOLDER = os.path.join(APP_ROOT, 'uploads')
 LABELS_PATH = os.path.join(APP_ROOT, 'models/labels.txt')
 MODEL_PATH = os.path.join(APP_ROOT, 'models/best_model.h5')
-
-FOOD_NAME = [
-    'Bánh bèo', 'Bánh bột lọc', 'Bánh căn', 'Bánh canh', 'Bánh chưng', 
-    'Bánh cuốn', 'Bánh đúc', 'Bánh giò', 'Bánh khọt', 'Bánh mì', 'Bánh pía', 'Bánh tét', 'Bánh tráng nướng', 
-    'Bánh xèo', 'Bún bò huế', 'Bún đậu mắm tôm', 'Bún mắm', 'Bún riêu', 'Bún thịt nướng', 'Cá kho tộ', 'Canh chua', 
-    'Cao lầu', 'cháo lòng', 'Cơm tấm', 'Gỏi cuốn', 'Hủ tiếu', 'Mì quảng', 'Nem chua', 'Phở', 'Xôi xéo'
-]
 
 app.config['UPLOAD'] = UPLOAD_FOLDER    
 
@@ -88,7 +82,8 @@ def recognize():
                 'food_name': str(FOOD_NAME[int(class_name[2:]) - 1]),
                 'confidence': str(int(float(confidence_score) * 100)) + "%",
                 'image_path': "/uploads" + "/" + file_name_random,
-                'description': summary
+                'description': summary,
+                "cook": cook[3]
             })
         except:
             return jsonify({
