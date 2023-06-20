@@ -83,7 +83,7 @@ def recognize():
                 'confidence': str(int(float(confidence_score) * 100)) + "%",
                 'image_path': "/uploads" + "/" + file_name_random,
                 'description': summary,
-                "cook": cook[3]
+                "cook": cook[int(class_name[2:]) - 1]
             })
         except:
             return jsonify({
@@ -92,7 +92,8 @@ def recognize():
                 'food_name': str(FOOD_NAME[int(class_name[2:]) - 1]),
                 'confidence': str(int(float(confidence_score) * 100)) + "%",
                 'image_path': "/uploads" + "/" + file_name_random,
-                'description': "The information about this dish cannot be found on wiki at the moment."
+                'description': "The information about this dish cannot be found on wiki at the moment.",
+                "cook": cook[int(class_name[2:]) - 1]
             })
     else:
         return jsonify({'message': 'No file uploaded!'})
