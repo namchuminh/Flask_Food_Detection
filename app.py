@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # encoding: utf-8
-from flask import Flask, request, jsonify, send_from_directory
+from flask import Flask, request, jsonify, send_from_directory, render_template
 from werkzeug.utils import secure_filename
 import os
 import numpy as np
@@ -40,9 +40,7 @@ def uploaded_file(filename):
 
 @app.route('/', methods=['GET'])
 def index():
-    return jsonify({
-        'message': 'To access this resource, please use the POST method.',
-    })
+    return render_template('index.html')
 
 @app.route('/', methods=['POST'])
 def recognize():
