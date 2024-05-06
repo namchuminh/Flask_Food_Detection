@@ -1,6 +1,10 @@
 # Flask_Food_Detection
 Xây dựng API với Flask Python để đưa ra dự đoán phân loại về tên món ăn với model đã train trước và trả về cho ứng dụng React Native
 
+# Yêu cầu
+- Python 3.11.4
+- tensorflow==2.12.0
+
 # Cài đặt
 - B1: Clone repo này về máy
 - B2: Tạo lệnh cmd: pip install -r requirements.txt
